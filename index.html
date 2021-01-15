@@ -6,68 +6,81 @@
 </head>
 <body>
   <script>
-//Will randomly return either Rock, Paper, or Scissors
-function computerPlay(){
-        let randInt = Math.floor(Math.random() * 3) + 1;
-        if (randInt === 1){
-            return "rock";
-        } 
-        else if (randInt === 2){
-            return "paper";
-        }
-        else return "scissors";
-    }
-
-
-    //Used to determine the results of an outcome of RPS
-    function rpsResults(player1, player2){
-
-        //make user input case insensitive
-        player1 = player1.toLowerCase();
-
-        //if the players have same input, it is a tie
-        if (player1 === player2){
-            console.log(`You Tied! ${player1} is the same as ${player2}.`);
-            return 0;
-        }
-
-        //if user inputs rock
-        else if (player1 === "rock"){
-            if (player2 === "scissors"){
-                console.log(`You Win! ${player1} beats ${player2}.`);
-                return 1;
+        //Will randomly return either Rock, Paper, or Scissors
+        function computerPlay(){
+            let randInt = Math.floor(Math.random() * 3) + 1;
+            if (randInt === 1){
+                return "rock";
+            } 
+            else if (randInt === 2){
+                return "paper";
             }
-            else{
-                console.log(`You Lose! ${player2} beats ${player1}.`);
+            else return "scissors";
+        }
+
+
+        //Used to determine the results of an outcome of RPS
+        function rpsResults(player1, player2){
+
+            //make user input case insensitive
+            player1 = player1.toLowerCase();
+
+            //if the players have same input, it is a tie
+            if (player1 === player2){
+                console.log(`You Tied! ${player1} is the same as ${player2}.`);
                 return 0;
             }
-        }
 
-        //if user inputs paper
-        else if (player1 === "paper"){
-            if (player2 === "rock"){
-                console.log(`You Win! ${player1} beats ${player2}.`);
-                return 1;
+            //if user inputs rock
+            else if (player1 === "rock"){
+                if (player2 === "scissors"){
+                    console.log(`You Win! ${player1} beats ${player2}.`);
+                    return 1;
+                }
+                else{
+                    console.log(`You Lose! ${player2} beats ${player1}.`);
+                    return 0;
+                }
             }
-            else{
-                console.log(`You Lose! ${player2} beats ${player1}.`);
-                return 0;
-            }
-        }
 
-        //if user inputs scissors
-        else{
-            if (player2 === "paper"){
-                console.log(`You Win! ${player1} beats ${player2}.`);
-                return 1;
+            //if user inputs paper
+            else if (player1 === "paper"){
+                if (player2 === "rock"){
+                    console.log(`You Win! ${player1} beats ${player2}.`);
+                    return 1;
+                }
+                else{
+                    console.log(`You Lose! ${player2} beats ${player1}.`);
+                    return 0;
+                }
             }
+
+            //if user inputs scissors
             else{
-                console.log(`You Lose! ${player2} beats ${player1}.`);
-                return 0;
+                if (player2 === "paper"){
+                    console.log(`You Win! ${player1} beats ${player2}.`);
+                    return 1;
+                }
+                else{
+                    console.log(`You Lose! ${player2} beats ${player1}.`);
+                    return 0;
+                }
             }
-        }
+
+          
+
+    
+
         
-    }
+        
+        }
+
+        function playGame(){
+                let userInput = prompt("Rock Paper or Scissors?");
+                console.log(rpsResults(userInput, computerPlay()));
+
+            
+            }
 
   </script>
 </body>
