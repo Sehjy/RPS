@@ -28,7 +28,7 @@
             //if the players have same input, it is a tie
             if (player1 === player2){
                 console.log(`You Tied! ${player1} is the same as ${player2}.`);
-                return 0;
+                return;
             }
 
             //if user inputs rock
@@ -75,12 +75,58 @@
         
         }
 
+        //plays one game of rps and outputs the results
         function playGame(){
                 let userInput = prompt("Rock Paper or Scissors?");
-                console.log(rpsResults(userInput, computerPlay()));
+                return (rpsResults(userInput, computerPlay()));
 
             
             }
+
+        //plays 5 games of rps and tells the results
+        function game(){
+
+            //increment to loop the game 5 times
+            let index = 0;
+
+            //scores that'll be compared at the end to see who wins
+            let userScore = 0;
+            let opponentScore = 0;
+
+            //loop for the number of games
+            while (index < 5){
+                
+                //new value assigned to gameResult every time the loop goes through an iteration
+                let gameResult = playGame();
+
+                //user wins add one to their score
+                if (gameResult == 1){
+                    userScore += 1;
+                }
+                
+                //opponent wins, add one to their score
+                else if (gameResult == 0){
+                    opponentScore += 1;
+                }
+                
+                //don't need to account for ties cause it would just skip the conditionals and come straight to the index increment
+                index++;
+
+            }
+
+            //series of comparisons to output the winner and the score
+            if (userScore > opponentScore){
+                return console.log(`You win ${userScore} to ${opponentScore}!`);
+            }
+
+            else if (userScore < opponentScore){
+                return console.log(`You lose ${userScore} to ${opponentScore}!`);
+            }
+
+            else{
+                return console.log(`You tied ${userScore} to ${opponentScore}!`);
+            }
+        }
 
   </script>
 </body>
