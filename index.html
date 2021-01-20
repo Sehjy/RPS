@@ -3,9 +3,32 @@
 <head>
   <title>Page Title</title>
   <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+    <div class = "display">
+        <div class = "gameBtns">
+            <button id = "rock" class="inputbtn">Rock</button>
+            <button id = "paper" class="inputbtn">Paper</button>
+            <button id = "scissors" class="inputbtn">Scissors</button>    
+        </div>
+
+
+
+
+    </div>
+
+
+
+
   <script>
+
+        
+
+
+
         //Will randomly return either Rock, Paper, or Scissors
         function computerPlay(){
             let randInt = Math.floor(Math.random() * 3) + 1;
@@ -18,54 +41,65 @@
             else return "scissors";
         }
 
+        const parent = document.querySelector(".display");
+        const resultDisplay = document.createElement('p');
+        
+        
+
 
         //Used to determine the results of an outcome of RPS
         function rpsResults(player1, player2){
+
+
+            
+
 
             //make user input case insensitive
             player1 = player1.toLowerCase();
 
             //if the players have same input, it is a tie
             if (player1 === player2){
-                console.log(`You Tied! ${player1} is the same as ${player2}.`);
-                return;
+                resultDisplay.textContent = `You Tied! ${player1.charAt(0).toUpperCase() + player1.slice(1)} is the same as ${player2.charAt(0).toUpperCase() + player2.slice(1)}.`;
+                //return;
             }
 
             //if user inputs rock
-            else if (player1 === "rock"){
+            if (player1 === "rock"){
                 if (player2 === "scissors"){
-                    console.log(`You Win! ${player1} beats ${player2}.`);
-                    return 1;
+                    resultDisplay.textContent = `You Win! Rock beats Paper.`;
+                    //return 1;
                 }
                 else{
-                    console.log(`You Lose! ${player2} beats ${player1}.`);
-                    return 0;
+                    resultDisplay.textContent = `You Lose! Paper beats Rock.`;
+                    //return 0;
                 }
             }
 
             //if user inputs paper
-            else if (player1 === "paper"){
+            if (player1 === "paper"){
                 if (player2 === "rock"){
-                    console.log(`You Win! ${player1} beats ${player2}.`);
+                    resultDisplay.textContent = `You Win! Paper beats Rock.`;
                     return 1;
                 }
                 else{
-                    console.log(`You Lose! ${player2} beats ${player1}.`);
-                    return 0;
+                    resultDisplay.textContent = `You Lose! Scissors beats Paper.`;
+                    //return 0;
                 }
             }
 
             //if user inputs scissors
-            else{
+            if (player1 === "scissors"){
                 if (player2 === "paper"){
-                    console.log(`You Win! ${player1} beats ${player2}.`);
-                    return 1;
+                    resultDisplay.textContent = `You Win! Scissors beats Paper.`;
+                    //return 1;
                 }
                 else{
-                    console.log(`You Lose! ${player2} beats ${player1}.`);
-                    return 0;
+                    resultDisplay.textContent = `You Lose! Rock beats Scissors.`;
+                    //return 0;
                 }
             }
+
+            parent.appendChild(resultDisplay);
 
           
 
@@ -75,15 +109,27 @@
         
         }
 
+      
+
+        //creates an array of the buttons
+        const buttons = Array.from(document.querySelectorAll('button'));
+        buttons.forEach(button => button.addEventListener('click', function(e){
+            playGame(e.target.id);
+
+        }));
+        
+        
+
         //plays one game of rps and outputs the results
-        function playGame(){
-                let userInput = prompt("Rock Paper or Scissors?");
+        function playGame(userInput){
                 return (rpsResults(userInput, computerPlay()));
 
             
             }
 
-        //plays 5 games of rps and tells the results
+        
+
+        /*plays 5 games of rps and tells the results
         function game(){
 
             //increment to loop the game 5 times
@@ -126,7 +172,8 @@
             else{
                 return console.log(`You tied ${userScore} to ${opponentScore}!`);
             }
-        }
+        }*/
+
 
   </script>
 </body>
