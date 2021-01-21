@@ -25,15 +25,46 @@ div.gameBtns {
   align-items: center;
 }
 
-p {
+.inputbtn {
+  margin: 2px;
+  width: 68px;
+  text-align: center;
+}
+
+div.scores {
+  height: 25%;
+  position: fixed;
+  bottom: 0%;
+  width: 100%;
+  opacity: 1;
+}
+
+.displayClass {
   display: flex;
   width: 100%;
   justify-content: center;
-  margin-top: 250px;
+  margin-top: 30%;
   font-size: xx-large;
 }
 
-.inputbtn {
+.scoreClass {
   display: flex;
-  margin: 2px;
+  justify-content: center;
+  font-size: x-large;
+}
+
+.youClass {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.compClass {
+  margin-left: 75%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

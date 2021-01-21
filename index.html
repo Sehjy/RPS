@@ -15,10 +15,19 @@
             <button id = "scissors" class="inputbtn">Scissors</button>    
         </div>
 
-
-
+        <div class = "scores">
+            <div id = "you" class="scores"></div>
+            <div id = "comp" class="scores"></div>
+        </div>
 
     </div>
+
+
+
+
+
+
+    
 
 
 
@@ -42,36 +51,55 @@
         }
 
         const parent = document.querySelector(".display");
-        const resultDisplay = document.createElement('p');
-        
+        const yParent = document.querySelector("#you");
+        const cParent = document.querySelector("#comp");
+        const sParent = document.querySelector(".scores");
+
+        const resultDisplay = document.createElement('text');resultDisplay.className = "displayClass"
         
 
+        
+        
+        const score = document.createElement('text');score.className = "scoreClass";
+        const yScore = document.createElement('text');yScore.className = "youClass";
+        const cScore = document.createElement('text');cScore.className = "compClass";
+
+        score.textContent = "Score";
+        
+
+       
+
+        
+
+        
+        
+        let userScore = 0;
+        let compScore = 0;
 
         //Used to determine the results of an outcome of RPS
         function rpsResults(player1, player2){
 
 
-            
-
 
             //make user input case insensitive
             player1 = player1.toLowerCase();
 
+
             //if the players have same input, it is a tie
             if (player1 === player2){
                 resultDisplay.textContent = `You Tied! ${player1.charAt(0).toUpperCase() + player1.slice(1)} is the same as ${player2.charAt(0).toUpperCase() + player2.slice(1)}.`;
-                //return;
+                
             }
 
             //if user inputs rock
             if (player1 === "rock"){
                 if (player2 === "scissors"){
                     resultDisplay.textContent = `You Win! Rock beats Paper.`;
-                    //return 1;
+                    userScore += 1;
                 }
                 else{
                     resultDisplay.textContent = `You Lose! Paper beats Rock.`;
-                    //return 0;
+                    compScore += 1;
                 }
             }
 
@@ -79,11 +107,11 @@
             if (player1 === "paper"){
                 if (player2 === "rock"){
                     resultDisplay.textContent = `You Win! Paper beats Rock.`;
-                    return 1;
+                    userScore += 1;
                 }
                 else{
                     resultDisplay.textContent = `You Lose! Scissors beats Paper.`;
-                    //return 0;
+                    compScore += 1;
                 }
             }
 
@@ -91,15 +119,57 @@
             if (player1 === "scissors"){
                 if (player2 === "paper"){
                     resultDisplay.textContent = `You Win! Scissors beats Paper.`;
-                    //return 1;
+                    userScore += 1;
                 }
                 else{
                     resultDisplay.textContent = `You Lose! Rock beats Scissors.`;
-                    //return 0;
+                    compScore += 1;
                 }
             }
+                    yScore.textContent = `You: ${userScore}`;
+                    cScore.textContent = `Computer: ${compScore}`;
+                    sParent.appendChild(score);
+                    yParent.appendChild(yScore);
+                    cParent.appendChild(cScore);
 
-            parent.appendChild(resultDisplay);
+                if (userScore === 5){
+                    resultDisplay.textContent = 'You Win!!';
+                    sParent.removeChild(score);
+                    parent.appendChild(resultDisplay);
+                    userScore = 0;
+                    compScore = 0;
+                    return;
+                }
+
+                else if (compScore === 5){
+                    resultDisplay.textContent = 'You Lose!!';
+                    sParent.removeChild(score);
+                    parent.appendChild(resultDisplay);
+                    userScore = 0;
+                    compScore = 0;
+                    return;
+                }
+
+                else{
+
+                    
+                    parent.appendChild(resultDisplay);
+
+
+                }
+                                
+
+
+
+            
+
+            return;
+
+
+
+
+
+
 
           
 
