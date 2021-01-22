@@ -7,9 +7,15 @@
 </head>
 
 <body>
+    
 
     <div class = "display">
+
+       
+        
         <div class = "gameBtns">
+            <button id="startBtn">Start Game?</button>
+            
             <button id = "rock" class="inputbtn">Rock</button>
             <button id = "paper" class="inputbtn">Paper</button>
             <button id = "scissors" class="inputbtn">Scissors</button>    
@@ -33,6 +39,57 @@
 
 
   <script>
+
+        //<div class="startBtnContainer">
+          //  
+        //</div>
+
+
+        const buttons = Array.from(document.querySelectorAll(".inputbtn"));
+        const startBtn = document.querySelector("#startBtn");
+        buttons.forEach(button => button.style.visibility = "hidden");
+
+        let userScore = 0;
+        let compScore = 0;
+
+        startBtn.addEventListener('click', function(e){
+            if(parent.contains(resultDisplay)){
+                parent.removeChild(resultDisplay);
+            }
+            
+            startBtn.style.visibility = "hidden";
+            buttons.forEach(button => button.style.visibility = "visible");
+            userScore = 0;
+            compScore = 0;
+            yScore.textContent = `You: ${userScore}`;
+            cScore.textContent = `Computer: ${compScore}`;
+            sParent.appendChild(score);
+            yParent.appendChild(yScore);
+            cParent.appendChild(cScore);
+            buttons.forEach(button => button.addEventListener('click', function(e){
+            playGame(e.target.id);
+
+            }));
+            
+            return;
+            
+        });
+
+                //creates an array of the buttons
+                
+        
+        
+
+        //plays one game of rps and outputs the results
+        function playGame(userInput){
+                return (rpsResults(userInput, computerPlay()));
+
+            
+            }
+
+
+
+
 
         
 
@@ -73,8 +130,9 @@
 
         
         
-        let userScore = 0;
-        let compScore = 0;
+
+
+
 
         //Used to determine the results of an outcome of RPS
         function rpsResults(player1, player2){
@@ -126,14 +184,18 @@
                     compScore += 1;
                 }
             }
-                    yScore.textContent = `You: ${userScore}`;
-                    cScore.textContent = `Computer: ${compScore}`;
-                    sParent.appendChild(score);
-                    yParent.appendChild(yScore);
-                    cParent.appendChild(cScore);
+                yScore.textContent = `You: ${userScore}`;
+                cScore.textContent = `Computer: ${compScore}`;
+                sParent.appendChild(score);
+                yParent.appendChild(yScore);
+                cParent.appendChild(cScore);
+
 
                 if (userScore === 5){
+                    startBtn.textContent = "Play Again?";
+                    startBtn.style.visibility = "visible";
                     resultDisplay.textContent = 'You Win!!';
+                    buttons.forEach(button => button.style.visibility = "hidden");
                     sParent.removeChild(score);
                     parent.appendChild(resultDisplay);
                     userScore = 0;
@@ -142,7 +204,10 @@
                 }
 
                 else if (compScore === 5){
+                    startBtn.textContent = "Play Again?";
+                    startBtn.style.visibility = "visible";
                     resultDisplay.textContent = 'You Lose!!';
+                    buttons.forEach(button => button.style.visibility = "hidden");
                     sParent.removeChild(score);
                     parent.appendChild(resultDisplay);
                     userScore = 0;
@@ -181,21 +246,7 @@
 
       
 
-        //creates an array of the buttons
-        const buttons = Array.from(document.querySelectorAll('button'));
-        buttons.forEach(button => button.addEventListener('click', function(e){
-            playGame(e.target.id);
 
-        }));
-        
-        
-
-        //plays one game of rps and outputs the results
-        function playGame(userInput){
-                return (rpsResults(userInput, computerPlay()));
-
-            
-            }
 
         
 

@@ -25,6 +25,19 @@ div.gameBtns {
   align-items: center;
 }
 
+.startBtnContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#startBtn {
+  position: absolute;
+}
+
 .inputbtn {
   margin: 2px;
   width: 68px;
