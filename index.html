@@ -1,301 +1,177 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Page Title</title>
-  <meta charset="UTF-8"/>
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    
-
-    <div class = "display">
-
-       
-        
-        <div class = "gameBtns">
-            <button id="startBtn">Start Game?</button>
-            
-            <button id = "rock" class="inputbtn">Rock</button>
-            <button id = "paper" class="inputbtn">Paper</button>
-            <button id = "scissors" class="inputbtn">Scissors</button>    
-        </div>
-
-        <div class = "scores">
-            <div id = "you" class="scores"></div>
-            <div id = "comp" class="scores"></div>
-        </div>
-
-    </div>
-
-
-
-
-
-
-    
-
-
-
-
-  <script>
-
-        //<div class="startBtnContainer">
-          //  
-        //</div>
-
-
-        const buttons = Array.from(document.querySelectorAll(".inputbtn"));
-        const startBtn = document.querySelector("#startBtn");
-        buttons.forEach(button => button.style.visibility = "hidden");
-
-        let userScore = 0;
-        let compScore = 0;
-
-        startBtn.addEventListener('click', function(e){
-            if(parent.contains(resultDisplay)){
-                parent.removeChild(resultDisplay);
-            }
-            
-            startBtn.style.visibility = "hidden";
-            buttons.forEach(button => button.style.visibility = "visible");
-            userScore = 0;
-            compScore = 0;
-            yScore.textContent = `You: ${userScore}`;
-            cScore.textContent = `Computer: ${compScore}`;
-            sParent.appendChild(score);
-            yParent.appendChild(yScore);
-            cParent.appendChild(cScore);
-            buttons.forEach(button => button.addEventListener('click', function(e){
-            playGame(e.target.id);
-
-            }));
-            
-            return;
-            
-        });
-
-                //creates an array of the buttons
-                
-        
-        
-
-        //plays one game of rps and outputs the results
-        function playGame(userInput){
-                return (rpsResults(userInput, computerPlay()));
-
-            
-            }
-
-
-
-
-
-        
-
-
-
-        //Will randomly return either Rock, Paper, or Scissors
-        function computerPlay(){
-            let randInt = Math.floor(Math.random() * 3) + 1;
-            if (randInt === 1){
-                return "rock";
-            } 
-            else if (randInt === 2){
-                return "paper";
-            }
-            else return "scissors";
-        }
-
-        const parent = document.querySelector(".display");
-        const yParent = document.querySelector("#you");
-        const cParent = document.querySelector("#comp");
-        const sParent = document.querySelector(".scores");
-
-        const resultDisplay = document.createElement('text');resultDisplay.className = "displayClass"
-        
-
-        
-        
-        const score = document.createElement('text');score.className = "scoreClass";
-        const yScore = document.createElement('text');yScore.className = "youClass";
-        const cScore = document.createElement('text');cScore.className = "compClass";
-
-        score.textContent = "Score";
-        
-
-       
-
-        
-
-        
-        
-
-
-
-
-        //Used to determine the results of an outcome of RPS
-        function rpsResults(player1, player2){
-
-
-
-            //make user input case insensitive
-            player1 = player1.toLowerCase();
-
-
-            //if the players have same input, it is a tie
-            if (player1 === player2){
-                resultDisplay.textContent = `You Tied! ${player1.charAt(0).toUpperCase() + player1.slice(1)} is the same as ${player2.charAt(0).toUpperCase() + player2.slice(1)}.`;
-                
-            }
-
-            //if user inputs rock
-            if (player1 === "rock"){
-                if (player2 === "scissors"){
-                    resultDisplay.textContent = `You Win! Rock beats Paper.`;
-                    userScore += 1;
-                }
-                else{
-                    resultDisplay.textContent = `You Lose! Paper beats Rock.`;
-                    compScore += 1;
-                }
-            }
-
-            //if user inputs paper
-            if (player1 === "paper"){
-                if (player2 === "rock"){
-                    resultDisplay.textContent = `You Win! Paper beats Rock.`;
-                    userScore += 1;
-                }
-                else{
-                    resultDisplay.textContent = `You Lose! Scissors beats Paper.`;
-                    compScore += 1;
-                }
-            }
-
-            //if user inputs scissors
-            if (player1 === "scissors"){
-                if (player2 === "paper"){
-                    resultDisplay.textContent = `You Win! Scissors beats Paper.`;
-                    userScore += 1;
-                }
-                else{
-                    resultDisplay.textContent = `You Lose! Rock beats Scissors.`;
-                    compScore += 1;
-                }
-            }
-                yScore.textContent = `You: ${userScore}`;
-                cScore.textContent = `Computer: ${compScore}`;
-                sParent.appendChild(score);
-                yParent.appendChild(yScore);
-                cParent.appendChild(cScore);
-
-
-                if (userScore === 5){
-                    startBtn.textContent = "Play Again?";
-                    startBtn.style.visibility = "visible";
-                    resultDisplay.textContent = 'You Win!!';
-                    buttons.forEach(button => button.style.visibility = "hidden");
-                    sParent.removeChild(score);
-                    parent.appendChild(resultDisplay);
-                    userScore = 0;
-                    compScore = 0;
-                    return;
-                }
-
-                else if (compScore === 5){
-                    startBtn.textContent = "Play Again?";
-                    startBtn.style.visibility = "visible";
-                    resultDisplay.textContent = 'You Lose!!';
-                    buttons.forEach(button => button.style.visibility = "hidden");
-                    sParent.removeChild(score);
-                    parent.appendChild(resultDisplay);
-                    userScore = 0;
-                    compScore = 0;
-                    return;
-                }
-
-                else{
-
-                    
-                    parent.appendChild(resultDisplay);
-
-
-                }
-                                
-
-
-
-            
-
-            return;
-
-
-
-
-
-
-
-          
-
-    
-
-        
-        
-        }
-
-      
-
-
-
-        
-
-        /*plays 5 games of rps and tells the results
-        function game(){
-
-            //increment to loop the game 5 times
-            let index = 0;
-
-            //scores that'll be compared at the end to see who wins
-            let userScore = 0;
-            let opponentScore = 0;
-
-            //loop for the number of games
-            while (index < 5){
-                
-                //new value assigned to gameResult every time the loop goes through an iteration
-                let gameResult = playGame();
-
-                //user wins add one to their score
-                if (gameResult == 1){
-                    userScore += 1;
-                }
-                
-                //opponent wins, add one to their score
-                else if (gameResult == 0){
-                    opponentScore += 1;
-                }
-                
-                //don't need to account for ties cause it would just skip the conditionals and come straight to the index increment
-                index++;
-
-            }
-
-            //series of comparisons to output the winner and the score
-            if (userScore > opponentScore){
-                return console.log(`You win ${userScore} to ${opponentScore}!`);
-            }
-
-            else if (userScore < opponentScore){
-                return console.log(`You lose ${userScore} to ${opponentScore}!`);
-            }
-
-            else{
-                return console.log(`You tied ${userScore} to ${opponentScore}!`);
-            }
-        }*/
-
-
-  </script>
-</body>
+	<head>
+		<title>Page Title</title>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="style.css" />
+	</head>
+
+	<body>
+		<div class="display">
+			<div class="gameBtns">
+				<button id="startBtn">Start Game?</button>
+
+				<button id="rock" class="inputbtn">Rock</button>
+				<button id="paper" class="inputbtn">Paper</button>
+				<button id="scissors" class="inputbtn">Scissors</button>
+			</div>
+
+			<div class="scores">
+				<div id="you" class="scores"></div>
+				<div id="comp" class="scores"></div>
+			</div>
+			<text class="displayClass">Rock-Paper-Scissors?</text>
+		</div>
+
+		<script>
+			//Main window variable
+			const parent = document.querySelector(".display");
+
+			//Main middle page results text
+			const resultDisplay = document.querySelector(".displayClass");
+
+			//Bottom score variables
+			const yParent = document.querySelector("#you");
+			const cParent = document.querySelector("#comp");
+			const sParent = document.querySelector(".scores");
+
+			//Creates text elements for the scores and assigns them class names
+			const score = document.createElement("text");
+			score.className = "scoreClass";
+			const yScore = document.createElement("text");
+			yScore.className = "youClass";
+			const cScore = document.createElement("text");
+			cScore.className = "compClass";
+
+			//Score text content
+			score.textContent = "Score";
+
+			//Creates an Nodelist of all the input buttons and makes it into an array
+			const buttons = Array.from(document.querySelectorAll(".inputbtn"));
+
+			//Assigns a variable to the start game button and then hides all the rps buttons
+			const startBtn = document.querySelector("#startBtn");
+			buttons.forEach((button) => (button.style.visibility = "hidden"));
+
+			//Global variable for scores initialized to 0
+			var userScore = 0;
+			var compScore = 0;
+
+			//Starts the game upon the user hitting Start Game/Play Again
+			function initializeGame() {
+				//Makes the Start Game button disappear while making the RPS options appear
+				startBtn.style.visibility = "hidden";
+				buttons.forEach((button) => (button.style.visibility = "visible"));
+
+				//Initializes scores and the text contents of the bottom of the screen and attaches it to the parents nodes
+				yScore.textContent = `You: ${userScore}`;
+				cScore.textContent = `Computer: ${compScore}`;
+				sParent.appendChild(score);
+				yParent.appendChild(yScore);
+				cParent.appendChild(cScore);
+
+				//Ask user to pick their move option
+				resultDisplay.textContent = "Choose your weapon!";
+			}
+
+			//Will randomly return either Rock, Paper, or Scissors as the computer's move for a given round
+			function computerPlay() {
+				let randInt = Math.floor(Math.random() * 3) + 1;
+				if (randInt === 1) {
+					return "rock";
+				} else if (randInt === 2) {
+					return "paper";
+				} else return "scissors";
+			}
+
+			//Used to determine the results of an outcome of RPS
+			function rpsResults(player1, player2) {
+				//make user input case insensitive
+				player1 = player1.toLowerCase();
+
+				//if the players have same input, make main result display the tie
+				if (player1 === player2) {
+					resultDisplay.textContent = `You Tied! ${
+						player1.charAt(0).toUpperCase() + player1.slice(1)
+					} is the same as ${
+						player2.charAt(0).toUpperCase() + player2.slice(1)
+					}.`;
+				}
+
+				//else if user inputs rock, adjust scores accordingly
+				else if (player1 === "rock") {
+					if (player2 === "scissors") {
+						resultDisplay.textContent = `You Win! Rock beats Scissors.`;
+						userScore += 1;
+					} else {
+						resultDisplay.textContent = `You Lose! Paper beats Rock.`;
+						compScore += 1;
+					}
+				}
+
+				//else if user inputs paper, adjust scores accordingly
+				else if (player1 === "paper") {
+					if (player2 === "rock") {
+						resultDisplay.textContent = `You Win! Paper beats Rock.`;
+						userScore += 1;
+					} else {
+						resultDisplay.textContent = `You Lose! Scissors beats Paper.`;
+						compScore += 1;
+					}
+				}
+
+				//else user input scissors, adjust scores accordingly
+				else {
+					if (player2 === "paper") {
+						resultDisplay.textContent = `You Win! Scissors beats Paper.`;
+						userScore += 1;
+					} else {
+						resultDisplay.textContent = `You Lose! Rock beats Scissors.`;
+						compScore += 1;
+					}
+				}
+
+				//change display of scores on screen
+				yScore.textContent = `You: ${userScore}`;
+				cScore.textContent = `Computer: ${compScore}`;
+
+				if (userScore === 5) {
+					startBtn.textContent = "Play Again?";
+					startBtn.style.visibility = "visible";
+					resultDisplay.textContent = "You Win!!";
+					buttons.forEach((button) => (button.style.visibility = "hidden"));
+					sParent.removeChild(score);
+					userScore = 0;
+					compScore = 0;
+					return;
+				} else if (compScore === 5) {
+					startBtn.textContent = "Play Again?";
+					startBtn.style.visibility = "visible";
+					resultDisplay.textContent = "You Lose!!";
+					buttons.forEach((button) => (button.style.visibility = "hidden"));
+					sParent.removeChild(score);
+					userScore = 0;
+					compScore = 0;
+					return;
+				}
+
+				return;
+			}
+
+			//plays one game of rps and outputs the results
+			function playGame(userInput) {
+				return rpsResults(userInput, computerPlay());
+			}
+
+			startBtn.addEventListener("click", function (e) {
+				initializeGame();
+			});
+
+			buttons.forEach((button) =>
+				button.addEventListener("click", function (e) {
+					playGame(e.target.id);
+				})
+			);
+		</script>
+	</body>
 </html>
