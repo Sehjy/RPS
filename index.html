@@ -20,7 +20,7 @@
 				<div id="you" class="scores"></div>
 				<div id="comp" class="scores"></div>
 			</div>
-			<text class="displayClass">Rock-Paper-Scissors?</text>
+			<text class="displayClass">Rock-Paper-Scissors</text>
 		</div>
 
 		<script>
@@ -135,12 +135,12 @@
 				yScore.textContent = `You: ${userScore}`;
 				cScore.textContent = `Computer: ${compScore}`;
 
+				//Once someone reaches 5, reset scores, and ask if user wants to play again or cancel to start
 				if (userScore === 5) {
 					startBtn.textContent = "Play Again?";
 					startBtn.style.visibility = "visible";
 					resultDisplay.textContent = "You Win!!";
 					buttons.forEach((button) => (button.style.visibility = "hidden"));
-					sParent.removeChild(score);
 					userScore = 0;
 					compScore = 0;
 					return;
@@ -149,7 +149,6 @@
 					startBtn.style.visibility = "visible";
 					resultDisplay.textContent = "You Lose!!";
 					buttons.forEach((button) => (button.style.visibility = "hidden"));
-					sParent.removeChild(score);
 					userScore = 0;
 					compScore = 0;
 					return;
@@ -163,10 +162,12 @@
 				return rpsResults(userInput, computerPlay());
 			}
 
+			//Once user hits the start button, runs the initialization function
 			startBtn.addEventListener("click", function (e) {
 				initializeGame();
 			});
 
+			//Array of the rps buttons, if any button is clicked, use that button id as the userinput for playGame()
 			buttons.forEach((button) =>
 				button.addEventListener("click", function (e) {
 					playGame(e.target.id);
