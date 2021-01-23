@@ -1,83 +1,87 @@
 html {
-  margin: 0px;
-  height: 100%;
-  width: 100%;
+	margin: 0px;
+	height: 100%;
+	width: 100%;
 }
 
 body {
-  margin: 0px;
-  min-height: 100%;
-  width: 100%;
-  display: flex;
+	margin: 0px;
+	min-height: 100%;
+	width: 100%;
+	display: flex;
 }
 
 div.display {
-  width: 100%;
-  display: flex;
+	width: 100%;
+	display: flex;
 }
 
 div.gameBtns {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.startBtnContainer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+div.endBtns {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-#startBtn {
-  position: absolute;
+#preQuit {
+	position: absolute;
+}
+button.startBtn {
+	display: flex;
+	margin: 2px;
+	width: 88px;
+	display: table-cell;
 }
 
 .inputbtn {
-  margin: 2px;
-  width: 68px;
-  text-align: center;
+	margin: 2px;
+	width: 68px;
+	text-align: center;
 }
 
 div.scores {
-  height: 25%;
-  position: fixed;
-  bottom: 0%;
-  width: 100%;
-  opacity: 1;
+	height: 25%;
+	position: fixed;
+	bottom: 0%;
+	width: 100%;
+	opacity: 1;
 }
 
 .displayClass {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  margin-top: 30%;
-  font-size: xx-large;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 30%;
+	font-size: xx-large;
 }
 
 .scoreClass {
-  display: flex;
-  justify-content: center;
-  font-size: x-large;
+	display: flex;
+	justify-content: center;
+	font-size: x-large;
 }
 
 .youClass {
-  width: 25%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	width: 25%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .compClass {
-  margin-left: 75%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	margin-left: 75%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

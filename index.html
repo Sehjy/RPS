@@ -9,8 +9,7 @@
 	<body>
 		<div class="display">
 			<div class="gameBtns">
-				<button id="startBtn">Start Game?</button>
-
+				<button class="startBtn" id="preQuit">Start Game?</button>
 				<button id="rock" class="inputbtn">Rock</button>
 				<button id="paper" class="inputbtn">Paper</button>
 				<button id="scissors" class="inputbtn">Scissors</button>
@@ -50,7 +49,7 @@
 			const buttons = Array.from(document.querySelectorAll(".inputbtn"));
 
 			//Assigns a variable to the start game button and then hides all the rps buttons
-			const startBtn = document.querySelector("#startBtn");
+			const startBtn = document.querySelector(".startBtn");
 			buttons.forEach((button) => (button.style.visibility = "hidden"));
 
 			//Global variable for scores initialized to 0
@@ -72,6 +71,28 @@
 
 				//Ask user to pick their move option
 				resultDisplay.textContent = "Choose your weapon!";
+			}
+
+			function endGame() {
+				startBtn.id = "";
+				const endContainer = document.createElement("div");
+				endContainer.className = "endBtns";
+				startBtn.parentNode.insertBefore(endContainer, startBtn);
+				endContainer.appendChild(startBtn);
+				const cancelbtn = document.createElement("button");
+				cancelbtn.textContent = "Quit";
+				cancelbtn.id = "quitId";
+				cancelbtn.className = "startBtn";
+				startBtn.parentNode.insertBefore(cancelbtn, startBtn.nextSibling);
+				cancelbtn.addEventListener("click", function (e) {
+					resultDisplay.textContent = "Rock-Paper-Scissors";
+					startBtn.textContent = "Start Game?";
+					endContainer.removeChild(cancelbtn);
+					endContainer.replaceWith(startBtn);
+					sParent.removeChild(score);
+					yParent.appendChild(yScore);
+					cParent.appendChild(cScore);
+				});
 			}
 
 			//Will randomly return either Rock, Paper, or Scissors as the computer's move for a given round
