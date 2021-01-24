@@ -52,12 +52,28 @@
 			const startBtn = document.querySelector(".startBtn");
 			buttons.forEach((button) => (button.style.visibility = "hidden"));
 
+			//creates a cancel button to be used in later function
+			const cancelbtn = document.createElement("button");
+			cancelbtn.textContent = "Quit";
+			cancelbtn.id = "quitId";
+			cancelbtn.className = "startBtn";
+
+			//create a new div to hold play again and quit
+			const endContainer = document.createElement("div");
+			endContainer.className = "endBtns";
+
 			//Global variable for scores initialized to 0
 			var userScore = 0;
 			var compScore = 0;
 
 			//Starts the game upon the user hitting Start Game/Play Again
 			function initializeGame() {
+				//if play again was clicked reorganize the start button containers
+				if (endContainer.contains(startBtn)) {
+					startBtn.id = "preQuit";
+					endContainer.replaceWith(startBtn);
+				}
+
 				//Makes the Start Game button disappear while making the RPS options appear
 				startBtn.style.visibility = "hidden";
 				buttons.forEach((button) => (button.style.visibility = "visible"));
@@ -73,25 +89,37 @@
 				resultDisplay.textContent = "Choose your weapon!";
 			}
 
+			//Run function upon user clicking the quit option instead of 'play again'
 			function endGame() {
+				//get rid of the preQuit id so that the it can be in a flex box with the quit btn
 				startBtn.id = "";
-				const endContainer = document.createElement("div");
-				endContainer.className = "endBtns";
+
+				//inserts the container before the original start button as
 				startBtn.parentNode.insertBefore(endContainer, startBtn);
+
+				//move the start button into the new div
 				endContainer.appendChild(startBtn);
-				const cancelbtn = document.createElement("button");
-				cancelbtn.textContent = "Quit";
-				cancelbtn.id = "quitId";
-				cancelbtn.className = "startBtn";
-				startBtn.parentNode.insertBefore(cancelbtn, startBtn.nextSibling);
+
+				//appends the cancelbtn created earlier
+				endContainer.appendChild(cancelbtn);
+
+				//if the quit button is clicked
 				cancelbtn.addEventListener("click", function (e) {
-					resultDisplay.textContent = "Rock-Paper-Scissors";
-					startBtn.textContent = "Start Game?";
-					endContainer.removeChild(cancelbtn);
-					endContainer.replaceWith(startBtn);
-					sParent.removeChild(score);
-					yParent.appendChild(yScore);
-					cParent.appendChild(cScore);
+					//Deleted code cause this makes more sense for now
+					//------------------------------------------------------
+					//resultDisplay.textContent = "Rock-Paper-Scissors";
+					//startBtn.textContent = "Start Game?";
+					//startBtn.id = "preQuit";
+					//endContainer.removeChild(cancelbtn);
+					//endContainer.replaceWith(startBtn);
+
+					//making blank instead of
+					//score.textContent = '';
+					//yScore.textContent = '';
+					//cScore.textContent = '';
+					//------------------------------------------------------
+					location.reload();
+					return false;
 				});
 			}
 
@@ -164,6 +192,7 @@
 					buttons.forEach((button) => (button.style.visibility = "hidden"));
 					userScore = 0;
 					compScore = 0;
+					endGame();
 					return;
 				} else if (compScore === 5) {
 					startBtn.textContent = "Play Again?";
@@ -172,6 +201,7 @@
 					buttons.forEach((button) => (button.style.visibility = "hidden"));
 					userScore = 0;
 					compScore = 0;
+					endGame();
 					return;
 				}
 
