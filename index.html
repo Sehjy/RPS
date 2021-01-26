@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Page Title</title>
+		<title>Rock-Paper-Scissors Game</title>
 		<meta charset="UTF-8" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Coda+Caption:wght@800&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+			integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+			crossorigin="anonymous"
+		/>
 		<link rel="stylesheet" href="style.css" />
 	</head>
 
@@ -10,9 +21,15 @@
 		<div class="display">
 			<div class="gameBtns">
 				<button class="startBtn" id="preQuit">Start Game?</button>
-				<button id="rock" class="inputbtn">Rock</button>
-				<button id="paper" class="inputbtn">Paper</button>
-				<button id="scissors" class="inputbtn">Scissors</button>
+				<button id="rock" class="inputbtn">
+					<i id="rock" class="far fa-hand-rock"></i>
+				</button>
+				<button id="paper" class="inputbtn">
+					<i id="paper" class="far fa-hand-paper"></i>
+				</button>
+				<button id="scissors" class="inputbtn">
+					<i id="scissors" class="far fa-hand-scissors"></i>
+				</button>
 			</div>
 
 			<div class="scores">
@@ -62,6 +79,13 @@
 			const endContainer = document.createElement("div");
 			endContainer.className = "endBtns";
 
+			const nextBtn = document.createElement("button");
+			nextBtn.textContent = "";
+			nextBtn.id = "nextId";
+			const nextArrow = document.createElement("i");
+			nextArrow.innerHTML = '<i class="far fa-arrow-alt-circle-right"></i>';
+			nextBtn.appendChild(nextArrow);
+
 			//Global variable for scores initialized to 0
 			var userScore = 0;
 			var compScore = 0;
@@ -72,11 +96,27 @@
 				if (endContainer.contains(startBtn)) {
 					startBtn.id = "preQuit";
 					endContainer.replaceWith(startBtn);
+					buttons.forEach((button) => {
+						if (button.classList.contains("fall")) {
+							button.classList.remove("fall");
+							button.classList.add("started");
+						}
+						if (button.classList.contains("winner")) {
+							button.classList.remove("winner");
+						}
+						if (button.classList.contains("loser")) {
+							button.classList.remove("loser");
+						}
+					});
+					buttons.forEach((button) => {
+						button.disabled = false;
+					});
 				}
 
 				//Makes the Start Game button disappear while making the RPS options appear
 				startBtn.style.visibility = "hidden";
 				buttons.forEach((button) => (button.style.visibility = "visible"));
+				buttons.forEach((button) => button.classList.add("started"));
 
 				//Initializes scores and the text contents of the bottom of the screen and attaches it to the parents nodes
 				yScore.textContent = `You: ${userScore}`;
@@ -103,7 +143,7 @@
 				//appends the cancelbtn created earlier
 				endContainer.appendChild(cancelbtn);
 
-				//if the quit button is clicked
+				//if the quit button is clicked reload page
 				cancelbtn.addEventListener("click", function (e) {
 					//Deleted code cause this makes more sense for now
 					//------------------------------------------------------
@@ -137,6 +177,18 @@
 			function rpsResults(player1, player2) {
 				//make user input case insensitive
 				player1 = player1.toLowerCase();
+
+				let playerInput = player1;
+				let oldU = userScore;
+				let oldC = compScore;
+
+				//attaches fall attribute for animation functionality
+				buttons.forEach((button) => {
+					if (button.id !== player1 && button.id !== player2) {
+						button.classList.add("fall");
+						button.classList.remove("started");
+					}
+				});
 
 				//if the players have same input, make main result display the tie
 				if (player1 === player2) {
@@ -180,30 +232,71 @@
 					}
 				}
 
+				if (userScore > oldU) {
+					buttons.forEach((button) => {
+						if (button.id === player1) {
+							button.classList.add("winner");
+						}
+						if (button.id === player2) {
+							button.classList.add("loser");
+						}
+					});
+				}
+
+				if (compScore > oldC) {
+					buttons.forEach((button) => {
+						if (button.id === player2) {
+							button.classList.add("winner");
+						}
+						if (button.id === player1) {
+							button.classList.add("loser");
+						}
+					});
+				}
+
 				//change display of scores on screen
 				yScore.textContent = `You: ${userScore}`;
 				cScore.textContent = `Computer: ${compScore}`;
 
 				//Once someone reaches 5, reset scores, and ask if user wants to play again or cancel to start
 				if (userScore === 5) {
+					buttons.forEach((button) => {
+						if (button.classList.contains("fall")) {
+							button.classList.remove("fall");
+						} else {
+							button.classList.remove("started");
+						}
+					});
+					buttons.forEach((button) => (button.style.visibility = "hidden"));
 					startBtn.textContent = "Play Again?";
 					startBtn.style.visibility = "visible";
 					resultDisplay.textContent = "You Win!!";
-					buttons.forEach((button) => (button.style.visibility = "hidden"));
 					userScore = 0;
 					compScore = 0;
 					endGame();
 					return;
 				} else if (compScore === 5) {
+					buttons.forEach((button) => {
+						if (button.classList.contains("fall")) {
+							button.classList.remove("fall");
+						} else {
+							button.classList.remove("started");
+						}
+					});
+					buttons.forEach((button) => (button.style.visibility = "hidden"));
 					startBtn.textContent = "Play Again?";
 					startBtn.style.visibility = "visible";
 					resultDisplay.textContent = "You Lose!!";
-					buttons.forEach((button) => (button.style.visibility = "hidden"));
 					userScore = 0;
 					compScore = 0;
 					endGame();
 					return;
 				}
+
+				startBtn.parentNode.appendChild(nextBtn);
+				buttons.forEach((button) => {
+					button.disabled = true;
+				});
 
 				return;
 			}
@@ -224,6 +317,29 @@
 					playGame(e.target.id);
 				})
 			);
+
+			//Makes all options available to pick upon click the button
+			nextBtn.addEventListener("click", function () {
+				buttons.forEach((button) => {
+					if (button.classList.contains("fall")) {
+						button.classList.remove("fall");
+						button.classList.add("started");
+					}
+					if (button.classList.contains("winner")) {
+						button.classList.remove("winner");
+					}
+					if (button.classList.contains("loser")) {
+						button.classList.remove("loser");
+					}
+				});
+				buttons.forEach((button) => {
+					button.disabled = false;
+				});
+				if (startBtn.parentNode.contains(nextBtn)) {
+					startBtn.parentNode.removeChild(nextBtn);
+				}
+				resultDisplay.textContent = "Choose again!";
+			});
 		</script>
 	</body>
 </html>

@@ -9,6 +9,9 @@ body {
 	min-height: 100%;
 	width: 100%;
 	display: flex;
+	background-image: linear-gradient(120deg, #323432, #9d9fc9);
+	color: white;
+	font-family: "Coda Caption", sans-serif;
 }
 
 div.display {
@@ -36,17 +39,81 @@ div.endBtns {
 	position: absolute;
 }
 
-button.startBtn {
+#nextId {
+	position: fixed;
+	bottom: 30%;
+	opacity: 1;
 	display: flex;
+	justify-content: center;
+	background: transparent;
+	border: 0;
+	cursor: pointer;
+	font-size: 2rem;
+}
+
+#nextId:hover {
+	transition: all 0.2 ease;
+	transform: scale(1.2);
+}
+
+button.startBtn {
 	margin: 2px;
-	width: 88px;
 	display: table-cell;
+	background: transparent;
+	color: white;
+	font-family: "Coda Caption", sans-serif;
+	cursor: pointer;
+}
+
+#nextId:focus {
+	outline: 0;
+}
+
+button.startBtn:hover {
+	transform: scale(1.2);
+}
+
+button.startBtn:focus {
+	outline: 0;
 }
 
 .inputbtn {
-	margin: 2px;
-	width: 68px;
+	margin: 15px;
 	text-align: center;
+	border: 10px solid black;
+	border-radius: 10px;
+	background: transparent;
+	font-size: 0rem;
+	cursor: pointer;
+}
+
+.inputbtn:hover {
+	transition: all 0.2 ease;
+	transform: scale(1.2);
+	box-shadow: 0 0 10px black;
+}
+
+.winner {
+	border-color: green;
+}
+
+.loser {
+	border-color: red;
+}
+
+.inputbtn:focus {
+	outline: 0;
+}
+
+.started {
+	font-size: 6rem;
+	transition: 0.3s ease;
+}
+
+.fall {
+	transform: translateY(5rem);
+	opacity: 0%;
+	transition: all 0.3s ease;
 }
 
 div.scores {
@@ -61,7 +128,7 @@ div.scores {
 	display: flex;
 	width: 100%;
 	justify-content: center;
-	margin-top: 30%;
+	margin-top: 25%;
 	font-size: xx-large;
 }
 
